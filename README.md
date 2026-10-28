@@ -97,7 +97,7 @@
   | USER                    | 小米运动登录账号，仅支持小米运动账号对应的手机号或邮箱，不支持小米账号                                                                            |
   | PWD                     | 小米运动登录密码，仅支持小米运动账号对应的密码                                                                                        |
   | MIN_STEP                | 最小步数                                                                                                           |
-  | MAX_STEP                | 最大步数，最大步数和最小步数随机范围随着时间线性增加，北京时间22点达到最大值                                                                        |
+  | MAX_STEP                | 最大步数，执行时在MIN_STEP与MAX_STEP之间随机取值，不随时间变化                                                                        |
   | PUSH_PLUS_TOKEN         | 推送加的个人token,申请地址[pushplus](https://www.pushplus.plus/push1.html)，工作流执行完成后推送每个账号的执行状态信息，如没有则不要填写                |
   | PUSH_PLUS_HOUR          | 限制只在某个整点进行pushplus的推送，值为整数，比如设置21，则只在北京时间21点XX分执行时才进行pushplus的消息推送。如不设置或值非数字则每次执行后都会进行推送                       |
   | PUSH_WECHAT_WEBHOOK_KEY | 企业微信推送通知的key，企业微信webhook机器人推送全地址为：https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={机器人的key}，这里配置{机器人的key} |
@@ -211,8 +211,7 @@
 
 7. 请注意，账号不是 [小米账号]，而是 [小米运动/ZeppLife] 的账号。
 
-8. 最大步数和最小步数随着时间增长，10点执行时范围为10/22 \* 18000 ~ 10/22 \* 25000：8181 ~
-   11363，以此类推，在北京时间22点达到最大值，即22点执行时随机步数的范围为18000-25000之间。要修改这个范围可以修改CONFIG中的MIN_STEP和MAX_STEP。
+8. 每次执行时均直接在CONFIG中设置的MIN_STEP和MAX_STEP之间随机取值，不随北京时间变化。
 
 9. cron的执行根据github actions的资源进行排队，并不是百分百按指定的时间进行运行，请知悉。
 
